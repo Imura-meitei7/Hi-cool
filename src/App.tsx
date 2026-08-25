@@ -178,7 +178,7 @@ OUTPUT JSON FORMAT:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         temperature: 0.6,
         response_format: { type: 'json_object' }, // GroqにJSON出力を強制
       });
