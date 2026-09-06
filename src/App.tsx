@@ -137,9 +137,10 @@ export default function App() {
     try {
       const groq = new Groq({ apiKey, dangerouslyAllowBrowser: true });
 
-      // システムプロンプトで「完成された5・7・5の1本物句」を厳密に指定
+// システムプロンプトで「完成された5・7・5の1本物句」と「厳格なJSON出力」を指定
       const systemPrompt = `You are a professional bilingual Haiku poet.
-You MUST reply strictly in JSON format.
+You MUST reply strictly in a valid JSON object format matching the schema below.
+Do not output any introductory or concluding text, explanations, or markdown code blocks outside of the JSON.
 
 CRITICAL RULES FOR JAPANESE HAIKU:
 1. Each string in "japaneseHaikus" MUST be a COMPLETE, SINGLE 5-7-5 Haiku written on ONE line separated by spaces (e.g. "5音 7音 5音").
@@ -151,7 +152,7 @@ EXAMPLES OF VALID "japaneseHaikus":
 - "夏の朝 弾む足音 ラジオ鳴る"
 - "汗を拭き 笑顔あふれる 帰り道"
 
-OUTPUT JSON FORMAT:
+REQUIRED OUTPUT JSON FORMAT:
 {
   "japaneseHaikus": [
     "5音句 7音句 5音句",
@@ -164,7 +165,7 @@ OUTPUT JSON FORMAT:
     "Line 1 / Line 2 / Line 3",
     "Line 1 / Line 2 / Line 3"
   ]
-}`;
+}`; 
 
       let userPrompt = 'Generate 4 Japanese haikus and 3 English 3-line haikus based on this content:\n';
       if (text) {
